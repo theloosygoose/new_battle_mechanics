@@ -22,10 +22,10 @@ size = Vector2(16, 16)
 [node name="Node2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_1ksbc")
 
-[node name="ActionArea" type="StaticBody2D" parent="."]
+[node name="ActionArea" type="Area2D" parent="."]
 script = ExtResource("1_qmgk5")
 
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="ActionArea"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ActionArea"]
 position = Vector2(320, 256)
 build_mode = 1
 polygon = PackedVector2Array(-192, -64, 192, -64, 192, 64, -192, 64)
@@ -34,26 +34,28 @@ polygon = PackedVector2Array(-192, -64, 192, -64, 192, 64, -192, 64)
 position = Vector2(320, 256)
 format = 2
 
+[node name="Player" type="CharacterBody2D" parent="ActionArea" node_paths=PackedStringArray("action_area")]
+position = Vector2(320, 256)
+collision_priority = 2.0
+motion_mode = 1
+script = ExtResource("2_4tn0p")
+action_area = NodePath("..")
+character_resource = ExtResource("3_w43na")
+
+[node name="Sprite2D" type="Sprite2D" parent="ActionArea/Player"]
+texture = ExtResource("5_8m1uu")
+
+[node name="ShooterComponent" type="Node2D" parent="ActionArea/Player"]
+script = ExtResource("1_28gfm")
+input = "action_00"
+shooter_resource = ExtResource("5_dsbdn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActionArea/Player"]
+shape = SubResource("RectangleShape2D_o687b")
+
 [node name="Enemy" type="Node2D" parent="."]
 position = Vector2(320, 88)
 
 [node name="Sprite2D" type="Sprite2D" parent="Enemy"]
 scale = Vector2(2.19, 2.19)
 texture = ExtResource("1_3ngkb")
-
-[node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(320, 256)
-motion_mode = 1
-script = ExtResource("2_4tn0p")
-character_resource = ExtResource("3_w43na")
-
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
-texture = ExtResource("5_8m1uu")
-
-[node name="ShooterComponent" type="Node2D" parent="Player"]
-script = ExtResource("1_28gfm")
-input = "action_00"
-shooter_resource = ExtResource("5_dsbdn")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource("RectangleShape2D_o687b")

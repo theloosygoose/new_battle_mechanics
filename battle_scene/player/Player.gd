@@ -2,10 +2,12 @@ extends CharacterBody2D
 class_name Player
 
 
+@export var action_area: ActionArea 
 @export var character_resource: CharacterResource
 
 @onready var speed: float = character_resource.speed
 
+@onready var bounds_vectors: Dictionary = action_area.current_bounds_dict
 
 func _ready() -> void:
 	for child in get_children():
@@ -32,3 +34,4 @@ func get_direction() -> Vector2:
 		direction.x += 1
 	
 	return direction.normalized()
+	
