@@ -1,0 +1,59 @@
+[gd_scene load_steps=10 format=3 uid="uid://dm7l8onl5nlnd"]
+
+[ext_resource type="Texture2D" uid="uid://c5s1kpo8fiymf" path="res://battle_scene/enemies/sprites/lg_red_rectangle.png" id="1_3ngkb"]
+[ext_resource type="Script" path="res://battle_scene/components/shooter/shooter.gd" id="1_28gfm"]
+[ext_resource type="Script" path="res://battle_scene/action_space/ActionArea.gd" id="1_qmgk5"]
+[ext_resource type="Script" path="res://battle_scene/player/Player.gd" id="2_4tn0p"]
+[ext_resource type="Resource" uid="uid://drdrl4fttnsu8" path="res://battle_scene/player/character_resources/01_character.tres" id="3_w43na"]
+[ext_resource type="Texture2D" uid="uid://3y1rjn5e50tg" path="res://battle_scene/player/sprite/blue_circle.png" id="5_8m1uu"]
+[ext_resource type="Resource" uid="uid://503h1lcga3wm" path="res://battle_scene/components/shooter/shooter_resources/shooter_player.tres" id="5_dsbdn"]
+
+[sub_resource type="Curve2D" id="Curve2D_1ksbc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 640, 0, 0, 0, 0, 0, 640, 360, 0, 0, 0, 0, 0, 360, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 640, 0)
+}
+point_count = 5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o687b"]
+size = Vector2(16, 16)
+
+[node name="BattleScene" type="Node"]
+
+[node name="Node2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_1ksbc")
+
+[node name="ActionArea" type="StaticBody2D" parent="."]
+script = ExtResource("1_qmgk5")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="ActionArea"]
+position = Vector2(320, 256)
+build_mode = 1
+polygon = PackedVector2Array(-192, -64, 192, -64, 192, 64, -192, 64)
+
+[node name="TileMap" type="TileMap" parent="ActionArea"]
+position = Vector2(320, 256)
+format = 2
+
+[node name="Enemy" type="Node2D" parent="."]
+position = Vector2(320, 88)
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy"]
+scale = Vector2(2.19, 2.19)
+texture = ExtResource("1_3ngkb")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(320, 256)
+motion_mode = 1
+script = ExtResource("2_4tn0p")
+character_resource = ExtResource("3_w43na")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+texture = ExtResource("5_8m1uu")
+
+[node name="ShooterComponent" type="Node2D" parent="Player"]
+script = ExtResource("1_28gfm")
+input = "action_00"
+shooter_resource = ExtResource("5_dsbdn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_o687b")
