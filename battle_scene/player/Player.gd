@@ -1,13 +1,11 @@
-extends CharacterBody2D
+extends Area2D 
 class_name Player
 
-
-@export var action_area: ActionArea 
 @export var character_resource: CharacterResource
 
 @onready var speed: float = character_resource.speed
 
-@onready var bounds_vectors: Dictionary = action_area.current_bounds_dict
+var bounds: Dictionary
 
 func _ready() -> void:
 	for child in get_children():
@@ -17,9 +15,13 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	var direction: Vector2 = get_direction()
-	velocity = direction * speed
+	var velocity: Vector2 = direction * speed
+	
+	var new_position: Vector2 = position + (velocity * delta)
+	new_position.x  = clamp(new_position.x, bounds.get("left"), bounds.get("right"))
+	new_position.y  = clamp(new_position.y, bounds.get("lower"), bounds.get("upper"))
 
-	move_and_collide(velocity * delta)
+	position = new_position
 
 func get_direction() -> Vector2:
 	var direction:Vector2 = Vector2.ZERO
@@ -35,3 +37,8 @@ func get_direction() -> Vector2:
 	
 	return direction.normalized()
 	
+
+func _on_action_area_bounds_changed(new_bounds: Dictionary) -> void:
+	bounds = new_bounds
+	print_debug("FROM PLAYER")
+	print_rich(bounds)
