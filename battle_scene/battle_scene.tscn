@@ -33,10 +33,11 @@ polygon = PackedVector2Array(-192, -64, 192, -64, 192, 64, -192, 64)
 [node name="TileMap" type="TileMap" parent="ActionArea"]
 format = 2
 
-[node name="Player" type="Area2D" parent="ActionArea"]
+[node name="Player" type="Area2D" parent="ActionArea" node_paths=PackedStringArray("action_area")]
 collision_priority = 2.0
 script = ExtResource("2_4tn0p")
 character_resource = ExtResource("3_w43na")
+action_area = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="ActionArea/Player"]
 texture = ExtResource("5_8m1uu")
@@ -55,5 +56,3 @@ position = Vector2(320, 88)
 [node name="Sprite2D" type="Sprite2D" parent="Enemy"]
 scale = Vector2(2.19, 2.19)
 texture = ExtResource("1_3ngkb")
-
-[connection signal="bounds_changed" from="ActionArea" to="ActionArea/Player" method="_on_action_area_bounds_changed"]

@@ -2,16 +2,22 @@ extends Area2D
 class_name Player
 
 @export var character_resource: CharacterResource
+@export var action_area: ActionArea
 
 @onready var speed: float = character_resource.speed
 
 var bounds: Dictionary
+
 
 func _ready() -> void:
 	for child in get_children():
 		if child is Sprite2D:
 			var sprite2D: Sprite2D = child
 			sprite2D.texture = character_resource.sprite
+			
+			
+	action_area.bounds_changed.connect(_on_action_area_bounds_changed)
+	
 
 func _physics_process(delta: float) -> void:
 	var direction: Vector2 = get_direction()
