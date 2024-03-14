@@ -10,20 +10,28 @@ var _collision_polygon: CollisionPolygon2D
 
 var bounds: Dictionary
 
-
 signal bounds_changed(new_bounds: Dictionary)
 
 func _ready() -> void:
 	init_get_polygon()
 	update_current_bounds()
 
+func _process(delta: float) -> void:
+	change_bounds_scale(0.2 * delta)
+	
+
 func _on_body_exited(body:Node2D) -> void:
 	if body is Player:
 		print("HELLPP")
 
-func change_bounds_scale(bounds_rescale: Vector2) -> void:
-	for bounds_vector in _collision_polygon.polygon:
-		bounds_vector = bounds_vector * bounds_rescale 
+func change_bounds_scale(bounds_rescale: float) -> void:
+	var new_polygon: PackedVector2Array = []
+
+	for i in range(_collision_polygon.polygon.size()):
+
+		new_polygon.append(_collision_polygon.polygon[i] - (_collision_polygon.polygon[i] * bounds_rescale))
+	
+	_collision_polygon.polygon = new_polygon
 
 	update_current_bounds()
 
