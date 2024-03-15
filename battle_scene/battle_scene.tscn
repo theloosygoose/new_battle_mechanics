@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://dm7l8onl5nlnd"]
+[gd_scene load_steps=16 format=3 uid="uid://dm7l8onl5nlnd"]
 
 [ext_resource type="Texture2D" uid="uid://c5s1kpo8fiymf" path="res://battle_scene/enemies/sprites/lg_red_rectangle.png" id="1_3ngkb"]
 [ext_resource type="Script" path="res://battle_scene/components/shooter/comp_shooter.gd" id="1_28gfm"]
 [ext_resource type="Script" path="res://battle_scene/BattleScene.gd" id="1_n0psx"]
 [ext_resource type="Script" path="res://battle_scene/action_space/ActionArea.gd" id="1_qmgk5"]
 [ext_resource type="Script" path="res://battle_scene/player/Player.gd" id="2_4tn0p"]
+[ext_resource type="Script" path="res://battle_scene/battle_manager/BattleManager.gd" id="2_cb1gt"]
 [ext_resource type="Resource" uid="uid://drdrl4fttnsu8" path="res://battle_scene/player/character_resources/01_character.tres" id="3_w43na"]
 [ext_resource type="Texture2D" uid="uid://3y1rjn5e50tg" path="res://battle_scene/player/sprite/blue_circle.png" id="5_8m1uu"]
 [ext_resource type="Resource" uid="uid://503h1lcga3wm" path="res://battle_scene/components/shooter/shooter_resources/shooter_player.tres" id="5_dsbdn"]
@@ -25,6 +26,9 @@ size = Vector2(16, 16)
 
 [node name="BattleScene" type="Node"]
 script = ExtResource("1_n0psx")
+
+[node name="BattleManager" type="Node" parent="."]
+script = ExtResource("2_cb1gt")
 
 [node name="Node2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_1ksbc")
@@ -58,9 +62,10 @@ shooter_resource = ExtResource("5_dsbdn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ActionArea/Player"]
 shape = SubResource("RectangleShape2D_o687b")
 
-[node name="Enemy" type="Node2D" parent="."]
+[node name="Enemy" type="Node2D" parent="." node_paths=PackedStringArray("battle_manager")]
 position = Vector2(320, 88)
 script = ExtResource("9_qyu5c")
+battle_manager = NodePath("../BattleManager")
 
 [node name="Sprite2D" type="Sprite2D" parent="Enemy"]
 scale = Vector2(2.19, 2.19)

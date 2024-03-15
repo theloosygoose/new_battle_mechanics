@@ -3,11 +3,10 @@ class_name Enemy
 extends Node2D 
 
 @export var battle_manager: BattleManager:
-	get:
-		if !check_battle_manager():
+	set(value):
+		if value != battle_manager:
+			battle_manager = value
 			update_configuration_warnings()
-
-		return battle_manager
 			
 
 func _get_configuration_warnings() -> PackedStringArray:
