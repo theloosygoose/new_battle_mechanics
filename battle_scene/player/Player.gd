@@ -15,7 +15,6 @@ func _ready() -> void:
 			var sprite2D: Sprite2D = child
 			sprite2D.texture = character_resource.sprite
 			
-			
 	action_area.bounds_changed.connect(_on_action_area_bounds_changed)
 	
 
