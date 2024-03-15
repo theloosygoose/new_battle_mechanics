@@ -1,12 +1,24 @@
+@tool
 class_name Enemy
 extends Node2D 
 
+@export var battle_manager: BattleManager:
+	get:
+		if !check_battle_manager():
+			update_configuration_warnings()
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+		return battle_manager
+			
 
+func _get_configuration_warnings() -> PackedStringArray:
+	var message: PackedStringArray = []
+	if !check_battle_manager():
+		message.append("Assign a BattleManagerComponent")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	return message
+	
+func check_battle_manager() -> bool:
+	if !battle_manager:
+		return false
+
+	return true
