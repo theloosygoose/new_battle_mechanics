@@ -2,7 +2,7 @@ extends Resource
 class_name ProjectileResource
 
 ## How does the projectile look?
-@export var texture: Texture2D
+@export var texture: Texture
 @export var shader: ShaderMaterial
 
 

@@ -5,5 +5,5 @@
 
 [resource]
 script = ExtResource("1_580qy")
-speed = 200.0
+speed = 300.0
 sprite = ExtResource("2_orelw")
