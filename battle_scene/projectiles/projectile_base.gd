@@ -19,7 +19,12 @@ var direction: Vector2 = Vector2.UP
 
 func _ready() -> void:
 	sprite.texture = proj_texture
+	area_entered.connect(_entered_area)
 	
 func _physics_process(delta: float) -> void:
 	var velocity: Vector2 = speed * direction
 	position += delta * velocity
+	
+func _entered_area(area: Area2D) -> void:
+	if area is CompHitbox:
+		queue_free()

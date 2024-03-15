@@ -1,7 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://dm7l8onl5nlnd"]
+[gd_scene load_steps=15 format=3 uid="uid://dm7l8onl5nlnd"]
 
 [ext_resource type="Texture2D" uid="uid://c5s1kpo8fiymf" path="res://battle_scene/enemies/sprites/lg_red_rectangle.png" id="1_3ngkb"]
-[ext_resource type="Script" path="res://battle_scene/components/shooter/shooter.gd" id="1_28gfm"]
+[ext_resource type="Script" path="res://battle_scene/components/shooter/comp_shooter.gd" id="1_28gfm"]
 [ext_resource type="Script" path="res://battle_scene/BattleScene.gd" id="1_n0psx"]
 [ext_resource type="Script" path="res://battle_scene/action_space/ActionArea.gd" id="1_qmgk5"]
 [ext_resource type="Script" path="res://battle_scene/player/Player.gd" id="2_4tn0p"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://3y1rjn5e50tg" path="res://battle_scene/player/sprite/blue_circle.png" id="5_8m1uu"]
 [ext_resource type="Resource" uid="uid://503h1lcga3wm" path="res://battle_scene/components/shooter/shooter_resources/shooter_player.tres" id="5_dsbdn"]
 [ext_resource type="PackedScene" uid="uid://byl0w62oufr02" path="res://battle_scene/projectiles/scenes/projectile_base.tscn" id="6_bknlh"]
+[ext_resource type="Script" path="res://battle_scene/enemies/enemy.gd" id="9_qyu5c"]
+[ext_resource type="Script" path="res://battle_scene/components/hitboxes/comp_hitbox.gd" id="11_bvfiu"]
 
 [sub_resource type="Curve2D" id="Curve2D_1ksbc"]
 _data = {
@@ -18,6 +20,8 @@ point_count = 5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o687b"]
 size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n8jfy"]
 
 [node name="BattleScene" type="Node"]
 script = ExtResource("1_n0psx")
@@ -56,7 +60,15 @@ shape = SubResource("RectangleShape2D_o687b")
 
 [node name="Enemy" type="Node2D" parent="."]
 position = Vector2(320, 88)
+script = ExtResource("9_qyu5c")
 
 [node name="Sprite2D" type="Sprite2D" parent="Enemy"]
 scale = Vector2(2.19, 2.19)
 texture = ExtResource("1_3ngkb")
+
+[node name="CompHitbox" type="Area2D" parent="Enemy"]
+script = ExtResource("11_bvfiu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/CompHitbox"]
+scale = Vector2(6.3212, 6.46198)
+shape = SubResource("RectangleShape2D_n8jfy")
