@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dm7l8onl5nlnd"]
+[gd_scene load_steps=17 format=3 uid="uid://dm7l8onl5nlnd"]
 
 [ext_resource type="Texture2D" uid="uid://c5s1kpo8fiymf" path="res://battle_scene/enemies/sprites/lg_red_rectangle.png" id="1_3ngkb"]
 [ext_resource type="Script" path="res://battle_scene/components/shooter/comp_shooter.gd" id="1_28gfm"]
@@ -8,8 +8,8 @@
 [ext_resource type="Script" path="res://battle_scene/battle_manager/BattleManager.gd" id="2_cb1gt"]
 [ext_resource type="Resource" uid="uid://drdrl4fttnsu8" path="res://battle_scene/player/character_resources/01_character.tres" id="3_w43na"]
 [ext_resource type="Texture2D" uid="uid://3y1rjn5e50tg" path="res://battle_scene/player/sprite/blue_circle.png" id="5_8m1uu"]
-[ext_resource type="Resource" uid="uid://503h1lcga3wm" path="res://battle_scene/components/shooter/shooter_resources/shooter_player.tres" id="5_dsbdn"]
 [ext_resource type="PackedScene" uid="uid://byl0w62oufr02" path="res://battle_scene/projectiles/scenes/projectile_base.tscn" id="6_bknlh"]
+[ext_resource type="Script" path="res://battle_scene/components/shooter/shooter_resource.gd" id="9_2ebkg"]
 [ext_resource type="Script" path="res://battle_scene/enemies/enemy.gd" id="9_qyu5c"]
 [ext_resource type="Script" path="res://battle_scene/components/hitboxes/comp_hitbox.gd" id="11_bvfiu"]
 
@@ -18,6 +18,13 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 640, 0, 0, 0, 0, 0, 640, 360, 0, 0, 0, 0, 0, 360, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 640, 0)
 }
 point_count = 5
+
+[sub_resource type="Resource" id="Resource_fmcyw"]
+script = ExtResource("9_2ebkg")
+cooldown_time = 0.2
+pattern = 0
+trigger = 0
+trigger_input = "action_00"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o687b"]
 size = Vector2(16, 16)
@@ -56,7 +63,7 @@ texture = ExtResource("5_8m1uu")
 [node name="ShooterComponent" type="Node2D" parent="ActionArea/Player"]
 script = ExtResource("1_28gfm")
 projectile = ExtResource("6_bknlh")
-shooter_resource = ExtResource("5_dsbdn")
+shooter_resource = SubResource("Resource_fmcyw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ActionArea/Player"]
 shape = SubResource("RectangleShape2D_o687b")

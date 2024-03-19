@@ -6,3 +6,5 @@
 script = ExtResource("1_j4kje")
 cooldown_time = 0.23
 pattern = 0
+trigger = 1
+trigger_input = "action_00"

@@ -2,19 +2,14 @@ extends Node2D
 class_name ShooterComponent
 
 
-@export var input_type: Trigger
-enum Trigger{
-	PLAYERTRIGGER,
-	ENEMYTRIGGER
-}
-
-@export var player_input: String 
-
 @export var projectile: PackedScene
 @export var shooter_resource: ShooterResource 
 
 @onready var cooldown_time: float = shooter_resource.cooldown_time 
 #var pattern:= shooter_resource.pattern
+
+@onready var input_type: ShooterResource.Trigger = shooter_resource.trigger
+@onready var input_name: String = shooter_resource.trigger_input
 
 
 var can_shoot: bool = true 
@@ -38,11 +33,11 @@ func _process(delta: float) -> void:
 
 func input_shoot() -> bool:
 	match input_type:
-		Trigger.PLAYERTRIGGER:
-			if Input.is_action_pressed(player_input):
+		ShooterResource.Trigger.PLAYER:
+			if Input.is_action_pressed(input_name):
 				return true
 
-		Trigger.ENEMYTRIGGER:
+		ShooterResource.Trigger.ENEMY:
 				return true
 
 		_:
@@ -57,6 +52,7 @@ func fire_projectile() -> void:
 
 	loaded.position = global_position
 	root.add_child(loaded)
+
 
 func check_cooldown(delta: float) -> void:
 	elapsed_time += delta
