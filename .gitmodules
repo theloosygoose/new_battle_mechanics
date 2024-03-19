@@ -1,0 +1,3 @@
+[submodule "rust_helpers"]
+	path = rust_helpers
+	url = https://github.com/theloosygoose/rust_helpers.git
