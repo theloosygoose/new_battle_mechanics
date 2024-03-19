@@ -55,7 +55,6 @@ texture = ExtResource("5_8m1uu")
 
 [node name="ShooterComponent" type="Node2D" parent="ActionArea/Player"]
 script = ExtResource("1_28gfm")
-input = "action_00"
 projectile = ExtResource("6_bknlh")
 shooter_resource = ExtResource("5_dsbdn")
 

@@ -8,7 +8,6 @@ class_name Player
 
 var bounds: Dictionary
 
-
 func _ready() -> void:
 	for child in get_children():
 		if child is Sprite2D:
