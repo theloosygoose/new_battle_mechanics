@@ -4,6 +4,8 @@ class_name Player
 @export var character_resource: CharacterResource
 @export var action_area: ActionArea
 
+
+#Load Exported Proporties 
 @onready var speed: float = character_resource.speed
 
 var bounds: Dictionary
