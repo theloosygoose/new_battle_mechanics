@@ -1,19 +1,22 @@
 class_name BattleManager
 extends Node
 
+var path2D_spawner: Path2D 
+var action_area: ActionArea 
+var enemy: Enemy
 
-## States of Battle
-## Bullet-Patterns, Abilities, Etc
-var battle_states: Dictionary 
+@export var enemy_actions: Array[EnemyActionResource]
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	print_rich(enemy_actions_to_dict(enemy_actions))
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
 
+func enemy_actions_to_dict(actions_array: Array[EnemyActionResource]) -> Dictionary:
+	var dict: Dictionary = {}
 
+	for action in actions_array:
+		dict[action.name.to_lower()] = action
+
+	return dict

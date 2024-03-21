@@ -12,6 +12,20 @@ enum Trigger {
 	ENEMY
 }
 
+enum Direction {
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+	TRACK	
+}
+
+enum Target {
+	PLAYER,
+	ENEMY,
+	NONE,
+}
+
 @export var cooldown_time: float 
 @export var pattern: Pattern
 
@@ -32,3 +46,6 @@ enum Trigger {
 		if value == "":
 			trigger = Trigger.ENEMY
 			trigger_input = value
+
+@export var direction: Direction
+@export var target: Target

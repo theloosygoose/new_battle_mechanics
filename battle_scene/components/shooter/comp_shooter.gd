@@ -1,4 +1,4 @@
-extends Node2D
+extends Marker2D 
 class_name ShooterComponent
 
 
@@ -8,8 +8,12 @@ class_name ShooterComponent
 @onready var cooldown_time: float = shooter_resource.cooldown_time 
 #var pattern:= shooter_resource.pattern
 
+#Get Shooter ResourceStats or whatever
 @onready var input_type: ShooterResource.Trigger = shooter_resource.trigger
 @onready var input_name: String = shooter_resource.trigger_input
+
+@onready var target: ShooterResource.Target = shooter_resource.target
+@onready var direction: ShooterResource.Direction = shooter_resource.direction 
 
 
 var can_shoot: bool = true 
@@ -46,11 +50,27 @@ func input_shoot() -> bool:
 	return false
 
 
-
 func fire_projectile() -> void:
 	var loaded: Projectile = projectile.instantiate()
+	var shoot_direction: Vector2
+
+	match direction:
+		ShooterResource.Direction.UP:
+			shoot_direction = Vector2.UP
+
+		ShooterResource.Direction.DOWN:
+			shoot_direction = Vector2.DOWN
+
+		ShooterResource.Direction.LEFT:
+			shoot_direction = Vector2.LEFT
+
+		ShooterResource.Direction.RIGHT:
+			shoot_direction = Vector2.RIGHT
+
 
 	loaded.position = global_position
+	loaded.direction = shoot_direction
+
 	root.add_child(loaded)
 
 
