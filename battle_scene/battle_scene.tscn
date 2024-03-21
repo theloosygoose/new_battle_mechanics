@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dm7l8onl5nlnd"]
+[gd_scene load_steps=21 format=3 uid="uid://dm7l8onl5nlnd"]
 
 [ext_resource type="Texture2D" uid="uid://c5s1kpo8fiymf" path="res://battle_scene/enemies/sprites/lg_red_rectangle.png" id="1_3ngkb"]
 [ext_resource type="Script" path="res://battle_scene/components/shooter/comp_shooter.gd" id="1_28gfm"]
@@ -10,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://drdrl4fttnsu8" path="res://battle_scene/player/character_resources/01_character.tres" id="3_w43na"]
 [ext_resource type="Texture2D" uid="uid://3y1rjn5e50tg" path="res://battle_scene/player/sprite/blue_circle.png" id="5_8m1uu"]
 [ext_resource type="PackedScene" uid="uid://byl0w62oufr02" path="res://battle_scene/projectiles/scenes/projectile_base.tscn" id="6_bknlh"]
+[ext_resource type="Resource" uid="uid://cl77ew3vn3adc" path="res://battle_scene/components/shooter/shooter_resources/shooter_enemy.tres" id="6_t11ok"]
 [ext_resource type="Script" path="res://battle_scene/components/shooter/shooter_resource.gd" id="9_2ebkg"]
 [ext_resource type="Script" path="res://battle_scene/enemies/enemy.gd" id="9_qyu5c"]
 [ext_resource type="Script" path="res://battle_scene/components/hitboxes/comp_hitbox.gd" id="11_bvfiu"]
@@ -36,10 +37,10 @@ point_count = 5
 script = ExtResource("9_2ebkg")
 cooldown_time = 0.2
 pattern = 0
-trigger = 0
-trigger_input = "action_00"
 direction = 0
-target = 2
+target = 1
+trigger = 0
+_trigger_input = "action_00"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o687b"]
 size = Vector2(16, 16)
@@ -49,9 +50,25 @@ size = Vector2(16, 16)
 [node name="BattleScene" type="Node"]
 script = ExtResource("1_n0psx")
 
-[node name="BattleManager" type="Node" parent="."]
+[node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("enemy_shot_locations")]
+unique_name_in_owner = true
 script = ExtResource("2_cb1gt")
-enemy_actions = Array[Object]([SubResource("Resource_7h3sn"), SubResource("Resource_08ds7")])
+enemy_actions = Array[ExtResource("3_kkx6u")]([SubResource("Resource_7h3sn"), SubResource("Resource_08ds7")])
+enemy_shot_locations = [NodePath("EnemyShooter_01"), NodePath("EnemyShooter_02")]
+
+[node name="EnemyShooter_01" type="Marker2D" parent="BattleManager"]
+position = Vector2(72, 256)
+gizmo_extents = 100.0
+script = ExtResource("1_28gfm")
+projectile = ExtResource("6_bknlh")
+shooter_resource = ExtResource("6_t11ok")
+
+[node name="EnemyShooter_02" type="Marker2D" parent="BattleManager"]
+position = Vector2(568, 256)
+gizmo_extents = 100.0
+script = ExtResource("1_28gfm")
+projectile = ExtResource("6_bknlh")
+shooter_resource = ExtResource("6_t11ok")
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_1ksbc")
@@ -67,8 +84,7 @@ polygon = PackedVector2Array(-192, -64, 192, -64, 192, 64, -192, 64)
 [node name="TileMap" type="TileMap" parent="ActionArea"]
 format = 2
 
-[node name="Player" type="Area2D" parent="ActionArea" node_paths=PackedStringArray("action_area")]
-collision_priority = 2.0
+[node name="Player" type="Node2D" parent="ActionArea" node_paths=PackedStringArray("action_area")]
 script = ExtResource("2_4tn0p")
 character_resource = ExtResource("3_w43na")
 action_area = NodePath("..")
@@ -81,8 +97,12 @@ script = ExtResource("1_28gfm")
 projectile = ExtResource("6_bknlh")
 shooter_resource = SubResource("Resource_fmcyw")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ActionArea/Player"]
+[node name="CompHitbox" type="Area2D" parent="ActionArea/Player"]
+script = ExtResource("11_bvfiu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActionArea/Player/CompHitbox"]
 shape = SubResource("RectangleShape2D_o687b")
+debug_color = Color(0, 0.584314, 0.788235, 0.419608)
 
 [node name="Enemy" type="Node2D" parent="." node_paths=PackedStringArray("battle_manager")]
 position = Vector2(320, 88)
@@ -95,6 +115,7 @@ texture = ExtResource("1_3ngkb")
 
 [node name="CompHitbox" type="Area2D" parent="Enemy"]
 script = ExtResource("11_bvfiu")
+target_type = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/CompHitbox"]
 scale = Vector2(6.3212, 6.46198)

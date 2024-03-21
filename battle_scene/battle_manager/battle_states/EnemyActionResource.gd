@@ -12,12 +12,6 @@ enum EnemyActionType {
 
 @export_range(0, 100) var length: float
 
-
-# BASIC FORMAT FOR FUNCTIONS AND DIFFERING BETWEEN ACTION TYPES
-# func FunctionName(whateverparams) -> void:
-#	match EnemyActionType:
-#     #Then just match for every action type and have it run diff functions?
-
 func Update(_delta: float) -> void:
 
 	match EnemyActionType:

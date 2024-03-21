@@ -1,4 +1,4 @@
-extends Area2D 
+extends Node2D 
 class_name Player
 
 @export var character_resource: CharacterResource
@@ -48,6 +48,3 @@ func _on_action_area_bounds_changed(new_bounds: Dictionary) -> void:
 	bounds = new_bounds
 	print_debug("FROM PLAYER")
 	print_rich(bounds)
-
-func _process(_delta: float) -> void:
-	pass
