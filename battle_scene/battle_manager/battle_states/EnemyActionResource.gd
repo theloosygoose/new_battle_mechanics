@@ -9,6 +9,7 @@ enum EnemyActionType {
 
 @export var name: String
 @export var action_type: EnemyActionType
+@export var test: String
 
 @export_range(0, 100) var length: float
 
@@ -23,5 +24,4 @@ func Update(_delta: float) -> void:
 			#Idle Function?
 			pass
 	pass
-
 
