@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dm7l8onl5nlnd"]
+[gd_scene load_steps=22 format=3 uid="uid://dm7l8onl5nlnd"]
 
 [ext_resource type="Texture2D" uid="uid://c5s1kpo8fiymf" path="res://battle_scene/enemies/sprites/lg_red_rectangle.png" id="1_3ngkb"]
 [ext_resource type="Script" path="res://battle_scene/components/shooter/comp_shooter.gd" id="1_28gfm"]
@@ -17,15 +17,18 @@
 
 [sub_resource type="Resource" id="Resource_7h3sn"]
 script = ExtResource("3_kkx6u")
-name = "Shoot_1"
 action_type = 0
-length = 42.424
+order = 0
 
 [sub_resource type="Resource" id="Resource_08ds7"]
 script = ExtResource("3_kkx6u")
-name = "blah"
 action_type = 0
-length = 42.15
+order = 0
+
+[sub_resource type="Resource" id="Resource_omht2"]
+script = ExtResource("3_kkx6u")
+action_type = 0
+order = 0
 
 [sub_resource type="Curve2D" id="Curve2D_1ksbc"]
 _data = {
@@ -53,7 +56,7 @@ script = ExtResource("1_n0psx")
 [node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("enemy_shot_locations")]
 unique_name_in_owner = true
 script = ExtResource("2_cb1gt")
-enemy_actions = Array[ExtResource("3_kkx6u")]([SubResource("Resource_7h3sn"), SubResource("Resource_08ds7")])
+enemy_actions = Array[ExtResource("3_kkx6u")]([SubResource("Resource_7h3sn"), SubResource("Resource_08ds7"), SubResource("Resource_omht2")])
 enemy_shot_locations = [NodePath("EnemyShooter_01"), NodePath("EnemyShooter_02")]
 
 [node name="EnemyShooter_01" type="Marker2D" parent="BattleManager"]

@@ -1,38 +1,30 @@
 class_name BattleManager
 extends Node
 
-var path2D_spawner: Path2D 
-var action_area: ActionArea 
-var enemy: Enemy
+@export var path2D_spawner: Path2D 
+@export var action_area: ActionArea 
+@export var enemy: Enemy
 
-@export var enemy_actions: Array[EnemyActionResource]
+var stages: Dictionary
 
-@export var enemy_shot_locations: Array[ShooterComponent]
-
-signal enemy_trigger
+var current_state: EnemyState
 
 func _ready() -> void:
-	print_rich(enemy_actions_to_dict(enemy_actions))
-	print_rich(ready_shoot_locations(enemy_shot_locations))
-
-func _process(_delta: float) -> void:
-	enemy_trigger.emit()
+	_setup()
 
 
-func enemy_actions_to_dict(actions_array: Array[EnemyActionResource]) -> Dictionary:
-	var dict: Dictionary = {}
-
-	for action in actions_array:
-		dict[action.name.to_lower()] = action
-
-	return dict
+func _setup() -> void:
+	#get stages
+	for child in get_children():
+		if child.is_class("EnemyState"):
+			stages[child.name.to_lower()] = child
 
 
-func ready_shoot_locations(shot_loc_array: Array[ShooterComponent]) -> Dictionary:
-	var dict: Dictionary = {}
+func _process(delta: float) -> void:
+	if current_state:
+		current_state.run(delta)
+	
 
-	for shot_location in shot_loc_array:
-		dict[shot_location.global_position] = shot_location
-		shot_location.add_to_group("enemy_shooters")
-
-	return dict
+func _physics_process(delta: float) -> void:
+	if current_state:
+		current_state.physics_run(delta)

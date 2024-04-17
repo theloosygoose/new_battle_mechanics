@@ -1,11 +1,11 @@
-[gd_resource type="Resource" script_class="ProjectileResource" load_steps=3 format=3 uid="uid://gm3l47ruk81h"]
+[gd_resource type="Resource" script_class="ProjectileResource" load_steps=2 format=3 uid="uid://gm3l47ruk81h"]
 
 [ext_resource type="Script" path="res://battle_scene/projectiles/projectile_resource.gd" id="1_pgpbi"]
-[ext_resource type="Texture2D" uid="uid://cyebs7v1jj6wi" path="res://battle_scene/projectiles/assets/white_pill.png" id="2_1dyy0"]
 
 [resource]
 script = ExtResource("1_pgpbi")
-texture = ExtResource("2_1dyy0")
+projectile_type = 0
+lifetime = 1.0
 linear_velocity = 1000.0
 scale = Vector2(0, 0)
 damage = 10.0

@@ -1,13 +1,19 @@
 extends Resource
 class_name ProjectileResource
 
-## How does the projectile look?
-@export var texture: Texture
-@export var shader: ShaderMaterial
+enum ProjectileType {
+	PROJECTILE,
+	HITSCAN
+}
 
+## How does the projectile look?
+@export var shader: ShaderMaterial
+@export var projectile_type: ProjectileType
+@export var lifetime: float
 
 ## How does the projectile move?
 @export_group("Projectile Movement")
 @export var linear_velocity: float
 @export var scale: Vector2
 @export var damage: float
+

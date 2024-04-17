@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://dponjbkr4bys7"]
+
+[ext_resource type="Script" path="res://battle_scene/projectiles/scenes/projectile_hitscan.gd" id="1_p72er"]
+[ext_resource type="Script" path="res://battle_scene/projectiles/projectile_resource.gd" id="2_t2cg3"]
+[ext_resource type="Texture2D" uid="uid://cyebs7v1jj6wi" path="res://battle_scene/projectiles/assets/white_pill.png" id="3_f1gci"]
+
+[sub_resource type="Resource" id="Resource_u72tx"]
+script = ExtResource("2_t2cg3")
+projectile_type = 1
+lifetime = 0.5
+linear_velocity = 0.0
+scale = Vector2(0, 0)
+damage = 10.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ta12k"]
+size = Vector2(26.9487, 23.4049)
+
+[node name="Hitscan" type="Area2D"]
+scale = Vector2(3.64, 22.08)
+script = ExtResource("1_p72er")
+proj_data = SubResource("Resource_u72tx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.26277, 0.0701542)
+scale = Vector2(1.2918, 1.19346)
+texture = ExtResource("3_f1gci")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.987015, 0.535772)
+scale = Vector2(0.179557, 0.827284)
+shape = SubResource("RectangleShape2D_ta12k")
