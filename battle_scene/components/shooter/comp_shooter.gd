@@ -1,7 +1,6 @@
 extends Marker2D 
 class_name ShooterComponent
 
-
 @export var projectile: PackedScene
 @export var shooter_resource: ShooterResource 
 
@@ -18,9 +17,8 @@ class_name ShooterComponent
 var cooldown: bool = true 
 var elapsed_time: float = 0.0
 
-
 # Node Connnections
-var battle_manager: BattleManager
+var enemy_battle_state: EnemyState 
 var root: Node
 
 var enemy_trigger: bool = false
@@ -28,11 +26,6 @@ var enemy_trigger: bool = false
 
 func _ready() -> void:
 	root = get_tree().root
-
-	if input_type == ShooterResource.Trigger.ENEMY:
-		connect_to_enemy_trigger()
-
-
 
 func _process(delta: float) -> void:	
 	check_cooldown(delta)
@@ -104,13 +97,6 @@ func check_cooldown(delta: float) -> void:
 	if elapsed_time >= cooldown_time:
 		cooldown = true
 
-
-func connect_to_enemy_trigger() -> void:
-	if input_type == ShooterResource.Trigger.ENEMY:
-		battle_manager = %BattleManager
-
-		battle_manager.enemy_trigger.connect(_on_enemy_trigger)
-
-func _on_enemy_trigger() -> void:
-	enemy_trigger = true 
+func pull_trigger() -> void:
+	enemy_trigger = true	
 
