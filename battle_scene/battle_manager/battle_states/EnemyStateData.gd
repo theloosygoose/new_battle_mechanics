@@ -18,4 +18,5 @@ enum EnemyActionType {
 @export var action_type: EnemyActionType
 
 ## Order Number to be used in the Battle Manager
+## experimental
 @export var order: int 
