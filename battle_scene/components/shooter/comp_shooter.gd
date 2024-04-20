@@ -23,7 +23,6 @@ var root: Node
 
 var enemy_trigger: bool = false
 
-
 func _ready() -> void:
 	root = get_tree().root
 

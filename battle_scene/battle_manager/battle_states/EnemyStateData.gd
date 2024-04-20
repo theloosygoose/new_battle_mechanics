@@ -12,7 +12,7 @@ enum EnemyActionType {
 @export var state_name: String
 
 ## Name for State to switch to on completion
-#@export var switch_state_name: String
+@export var switch_state: String
 
 ## Action Type of enum EnemyActionType
 # @export var action_type: EnemyActionType

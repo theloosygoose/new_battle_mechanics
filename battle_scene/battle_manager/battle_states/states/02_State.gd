@@ -24,4 +24,4 @@ func physics_run(_delta: float) -> void:
 
 func _on_timer_timeout() -> void:
 	print(self.data.state_name, " ENDED")
-	switch.emit(self, "01_state")
+	switch.emit(self, data.switch_state)
