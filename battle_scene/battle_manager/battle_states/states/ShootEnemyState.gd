@@ -33,4 +33,4 @@ func end() -> void:
 	queue_free()
 
 func _on_timer_timeout() -> void:
-	switch.emit(self, "State2")
+	switch.emit(self, data.switch_state)

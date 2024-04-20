@@ -24,6 +24,8 @@ func _ready() -> void:
 	for child: Node in get_children():
 		if child is EnemyState:
 			var child_state: EnemyState = child
+			print("::LOADED::")
+			print(child_state.data.state_name)
 			states[child_state.data.state_name.to_lower()] = child_state
 			child_state.switch.connect(_on_switch)
 
@@ -46,7 +48,7 @@ func _on_switch(state: EnemyState, new_state_name: String) -> void:
 		new_state = states.get(new_state_name.to_lower())
 
 	if !new_state:
-		print_debug("new_state_name does not exist")
+		print_debug(new_state_name, " :: does not exist")
 		return
 
 	if current_state:

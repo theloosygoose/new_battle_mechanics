@@ -17,8 +17,8 @@
 
 [sub_resource type="Resource" id="Resource_kgv4i"]
 script = ExtResource("4_mifee")
-state_name = "01_state"
-switch_state = "02_state"
+state_name = "01_shoot"
+switch_state = "02_shoot"
 
 [sub_resource type="Resource" id="Resource_t8hp0"]
 script = ExtResource("9_2ebkg")
@@ -110,6 +110,7 @@ projectile = ExtResource("6_bknlh")
 shooter_resource = SubResource("Resource_u2hj7")
 
 [node name="Timer" type="Timer" parent="BattleManager/ShootEnemyState"]
+wait_time = 1.4
 
 [node name="ShootEnemyState2" type="Node" parent="BattleManager"]
 script = ExtResource("3_rr5nu")
