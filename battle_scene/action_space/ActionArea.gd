@@ -8,16 +8,24 @@ var initial_bounds: PackedVector2Array
 
 var _collision_polygon: CollisionPolygon2D
 
-var bounds: Dictionary
+@onready var bounds: Bounds = Bounds.new()
 
-signal bounds_changed(new_bounds: Dictionary)
+signal bounds_changed
+
+class Bounds:
+	var up: float
+	var right: float
+	var left: float
+	var down: float
+	var center: Vector2 
+	var global_center: Vector2
 
 func _ready() -> void:
 	init_get_polygon()
 	update_current_bounds()
 
-func _process(_delta: float) -> void:
-#	change_bounds_scale(0.2 * delta)
+func _process(delta: float) -> void:
+	change_bounds_scale(0.1 * delta)
 	pass
 
 func _on_body_exited(body:Node2D) -> void:
@@ -37,7 +45,8 @@ func change_bounds_scale(bounds_rescale: float) -> void:
 
 func update_current_bounds() -> void:
 	current_bounds = _collision_polygon.polygon
-	bounds_changed.emit(bounds_positions())
+	bounds_positions()
+	bounds_changed.emit()
 		
 func init_get_polygon() -> void:
 	var child := $CollisionPolygon2D 
@@ -47,22 +56,22 @@ func init_get_polygon() -> void:
 	initial_bounds = _collision_polygon.polygon
 	
 
-func bounds_positions() -> Dictionary:
-	var dict: Dictionary = {}
-	
+func bounds_positions() -> void:
 	for position_vector in _collision_polygon.polygon:
 		var x: float = position_vector.x
 		var y: float = position_vector.y
 
 		if x >= 0:
-			dict["right"] = x
+			bounds.right = x
 		else:
-			dict["left"] = x
+			bounds.left = x
 		if y >= 0:
-			dict["upper"] = y
+			bounds.up = y
 		else:
-			dict["lower"] = y
-			
-	print_rich(dict)	
-		
-	return dict
+			bounds.down = y
+
+	bounds.center.x = bounds.left + bounds.right
+	bounds.center.y = bounds.up + bounds.down
+
+	bounds.global_center.x = bounds.center.x + global_position.x
+	bounds.global_center.y = bounds.center.y + global_position.y

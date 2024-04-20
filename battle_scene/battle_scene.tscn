@@ -135,6 +135,7 @@ wait_time = 1.646
 curve = SubResource("Curve2D_1ksbc")
 
 [node name="ActionArea" type="Area2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(320, 256)
 script = ExtResource("1_qmgk5")
 

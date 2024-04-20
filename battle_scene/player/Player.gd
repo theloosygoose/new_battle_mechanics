@@ -4,7 +4,6 @@ class_name Player
 @export var character_resource: CharacterResource
 @export var action_area: ActionArea
 
-
 #Load Exported Proporties 
 @onready var speed: float = character_resource.speed
 
@@ -44,7 +43,11 @@ func get_direction() -> Vector2:
 	return direction.normalized()
 	
 
-func _on_action_area_bounds_changed(new_bounds: Dictionary) -> void:
-	bounds = new_bounds
+func _on_action_area_bounds_changed() -> void:
+	bounds["upper"] = action_area.bounds.up
+	bounds["lower"] = action_area.bounds.down
+	bounds["left"] = action_area.bounds.left
+	bounds["right"] = action_area.bounds.right
+
 	print_debug("FROM PLAYER")
 	print_rich(bounds)

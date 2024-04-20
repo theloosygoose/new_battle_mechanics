@@ -14,6 +14,8 @@ class_name ShooterComponent
 @onready var target: ShooterResource.Target = shooter_resource.target
 @onready var direction: ShooterResource.Direction = shooter_resource.direction 
 
+@onready var action_area: ActionArea = get_node("%ActionArea")
+
 var cooldown: bool = true 
 var elapsed_time: float = 0.0
 
@@ -74,13 +76,10 @@ func fire_projectile() -> void:
 			shoot_direction = Vector2.RIGHT
 
 		ShooterResource.Direction.TOWARDS_CENTER:
-			var viewport_center_x: float = get_viewport().get_visible_rect().size.x / 2
+			# Find the Center Based on this 
+			var center_direction: float = global_position.angle_to_point(action_area.bounds.global_center)
+			shoot_direction = Vector2.from_angle(center_direction)
 
-			if global_position.x < viewport_center_x:
-				shoot_direction = Vector2.RIGHT
-
-			if global_position.x > viewport_center_x:
-				shoot_direction = Vector2.LEFT
 
 
 	loaded.position = global_position
@@ -88,7 +87,6 @@ func fire_projectile() -> void:
 	loaded.proj_target = target
 
 	root.add_child(loaded)
-
 
 func check_cooldown(delta: float) -> void:
 	elapsed_time += delta
