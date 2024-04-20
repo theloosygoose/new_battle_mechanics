@@ -9,11 +9,11 @@ var call_count: int = 0
 func start() -> void:
 	if call_count == 0:
 		for child: Node in child_nodes:
-			if child.get_class() == "ShooterComponent":
+			if child is ShooterComponent:
 				var shooter: ShooterComponent = child
 				shooters.append(shooter)
 
-			if child.get_class() == "Timer":
+			if child is Timer:
 				timer = child
 				timer.timeout.connect(_on_timer_timeout)
 
@@ -30,7 +30,7 @@ func physics_run(_delta: float) -> void:
 	pass
 
 func end() -> void:
-	queue_free()
+	pass
 
 func _on_timer_timeout() -> void:
 	switch.emit(self, data.switch_state)
