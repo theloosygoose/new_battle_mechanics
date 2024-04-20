@@ -19,6 +19,7 @@ enum Direction {
 	RIGHT,
 	TRACK,
 	TOWARDS_CENTER,
+	PLAYER
 }
 
 enum Target {

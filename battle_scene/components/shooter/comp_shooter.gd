@@ -15,6 +15,8 @@ class_name ShooterComponent
 @onready var direction: ShooterResource.Direction = shooter_resource.direction 
 
 @onready var action_area: ActionArea = get_node("%ActionArea")
+@onready var player: Player = get_node("%Player")
+@export var track_node: Node2D
 
 var cooldown: bool = true 
 var elapsed_time: float = 0.0
@@ -80,11 +82,18 @@ func fire_projectile() -> void:
 			var center_direction: float = global_position.angle_to_point(action_area.bounds.global_center)
 			shoot_direction = Vector2.from_angle(center_direction)
 
+		ShooterResource.Direction.PLAYER:
+			var player_direction: float = global_position.angle_to_point(player.global_position)
+			shoot_direction = Vector2.from_angle(player_direction)
+
 
 
 	loaded.position = global_position
 	loaded.direction = shoot_direction
 	loaded.proj_target = target
+
+	if track_node:
+		loaded.new_track(track_node) 
 
 	root.add_child(loaded)
 

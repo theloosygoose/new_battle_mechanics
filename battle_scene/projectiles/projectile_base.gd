@@ -1,7 +1,6 @@
 extends Area2D
 class_name Projectile
 
-
 @export var proj_data: ProjectileResource 
 
 ## How does the projectile _look?
@@ -17,15 +16,26 @@ var proj_target: ShooterResource.Target = ShooterResource.Target.ENEMY
 var direction: Vector2 = Vector2.UP
 
 var is_proj_track: bool = false
+var track_node: Node2D
 
-var track_data: TrackData
+var track_data: Track
 
 var lifetime_timer: Timer
 
-class TrackData:
+class Track:
 	var track_on: bool
-	var track_node: Node 
+	var cur_track_node: Node2D 
 	var prev_position: Vector2
+
+	func physics_update() -> void:
+		if self.cur_track_node:
+			self.prev_position = self.cur_track_node.global_position
+
+	func off() -> void:
+		self.track_on = false
+	
+	func on() -> void:
+		self.track_on = true
 
 func _ready() -> void:
 	area_entered.connect(_entered_area)
@@ -35,12 +45,18 @@ func _ready() -> void:
 	lifetime_timer.timeout.connect(_lifetime_timeout)
 	self.add_child(lifetime_timer)
 	lifetime_timer.start()
+
 	
 func _physics_process(delta: float) -> void:
 	var velocity: Vector2
 
 	if !is_proj_track:
 		velocity= speed * direction
+		rotation_degrees = rad_to_deg(direction.angle()) - 90
+	else:
+		track_data.physics_update()
+		direction = Vector2.from_angle(global_position.angle_to_point(track_data.prev_position))
+		velocity = speed * direction
 		rotation_degrees = rad_to_deg(direction.angle()) - 90
 
 	position += delta * velocity
@@ -66,18 +82,11 @@ func _entered_area(area: Area2D) -> void:
 	else:
 		pass
 
-func track(track_node: Node, prev_position: Vector2) -> void:
+func new_track(_track_node: Node2D) -> void:
+	track_data = Track.new()
+	track_data.cur_track_node = _track_node
+	track_data.on()
 	is_proj_track = true
-	track_data = TrackData.new()
-	track_data.track_on = true
-	track_data.track_node = track_node
-	track_data.prev_position = prev_position
-
-func disable_track() -> void:
-	track_data.track_on = false
-
-func enable_track() -> void:
-	track_data.track_on = true
 
 func _lifetime_timeout() -> void:
 	print("All Done")
