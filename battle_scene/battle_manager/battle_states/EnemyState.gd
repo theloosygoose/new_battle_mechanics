@@ -37,7 +37,6 @@ func run(_delta: float) -> void:
 func physics_run(_delta: float) -> void:
 	pass
 
-
 ## Ran at the end of the state
 func end() -> void:
 	pass

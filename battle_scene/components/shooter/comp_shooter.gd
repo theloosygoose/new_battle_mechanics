@@ -105,4 +105,3 @@ func check_cooldown(delta: float) -> void:
 
 func pull_trigger() -> void:
 	enemy_trigger = true	
-
