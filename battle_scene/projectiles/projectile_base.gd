@@ -55,8 +55,9 @@ func _physics_process(delta: float) -> void:
 		rotation_degrees = rad_to_deg(direction.angle()) - 90
 	else:
 		track_data.physics_update()
-		direction = Vector2.from_angle(global_position.angle_to_point(track_data.prev_position))
-		velocity = speed * direction
+		var direction_to_target: Vector2 = Vector2.from_angle(global_position.angle_to_point(track_data.prev_position))
+		direction += direction_to_target.normalized()
+		velocity = speed * direction.normalized()
 		rotation_degrees = rad_to_deg(direction.angle()) - 90
 
 	position += delta * velocity
