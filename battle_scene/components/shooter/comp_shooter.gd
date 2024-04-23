@@ -78,6 +78,7 @@ func fire_projectile() -> void:
 
 	if data.speed_override:
 		loaded.data.linear_velocity = data.speed_override
+
 	if track_node:
 		loaded.new_track(track_node) 
 

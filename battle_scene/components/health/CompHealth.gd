@@ -15,11 +15,11 @@ func damage(attack: Attack) -> void:
 	print("took DAMAGE", attack.damage)
 	health -= attack.damage 
 
-	if health >= 0.0:
+	if health <= 0.0:
 		health_depleated.emit()
 
 	health_changed.emit(health)
 
-
 func _on_health_depleated() -> void:
-	get_parent().queue_free()
+	var parentnode2d: Node2D = get_parent()
+	parentnode2d.visible = false 
