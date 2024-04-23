@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dm7l8onl5nlnd"]
+[gd_scene load_steps=27 format=3 uid="uid://dm7l8onl5nlnd"]
 
 [ext_resource type="Texture2D" uid="uid://c5s1kpo8fiymf" path="res://battle_scene/enemies/sprites/lg_red_rectangle.png" id="1_3ngkb"]
 [ext_resource type="Script" path="res://battle_scene/components/shooter/comp_shooter.gd" id="1_28gfm"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://battle_scene/battle_manager/battle_states/EnemyStateData.gd" id="4_mifee"]
 [ext_resource type="Texture2D" uid="uid://3y1rjn5e50tg" path="res://battle_scene/player/sprite/blue_circle.png" id="5_8m1uu"]
 [ext_resource type="PackedScene" uid="uid://byl0w62oufr02" path="res://battle_scene/projectiles/scenes/projectile_base.tscn" id="6_bknlh"]
+[ext_resource type="Script" path="res://battle_scene/battle_manager/battle_states/states/IdleEnemyState.gd" id="8_xbkfc"]
 [ext_resource type="Script" path="res://battle_scene/components/shooter/shooter_resource.gd" id="9_2ebkg"]
 [ext_resource type="Script" path="res://battle_scene/enemies/enemy.gd" id="9_qyu5c"]
 [ext_resource type="Script" path="res://battle_scene/components/hitboxes/comp_hitbox.gd" id="11_bvfiu"]
@@ -61,6 +62,11 @@ target = 0
 trigger = 1
 _trigger_input = ""
 
+[sub_resource type="Resource" id="Resource_30r50"]
+script = ExtResource("4_mifee")
+state_name = "01_idle"
+switch_state = "02_shoot"
+
 [sub_resource type="Curve2D" id="Curve2D_1ksbc"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 640, 0, 0, 0, 0, 0, 640, 360, 0, 0, 0, 0, 0, 360, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 640, 0)
@@ -91,7 +97,7 @@ path2D_spawner = NodePath("../Path2D")
 action_area = NodePath("../ActionArea")
 enemy = NodePath("../Enemy")
 initial_state_type = 1
-initial_state = NodePath("ShootEnemyState")
+initial_state = NodePath("IdleEnemyState")
 
 [node name="ShootEnemyState" type="Node" parent="BattleManager"]
 script = ExtResource("3_rr5nu")
@@ -131,6 +137,11 @@ track_node = NodePath("../../../ActionArea/Player")
 
 [node name="Timer" type="Timer" parent="BattleManager/ShootEnemyState2"]
 wait_time = 1.646
+
+[node name="IdleEnemyState" type="Node" parent="BattleManager" node_paths=PackedStringArray("input_button")]
+script = ExtResource("8_xbkfc")
+input_button = NodePath("../../Button")
+data = SubResource("Resource_30r50")
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_1ksbc")
@@ -184,3 +195,14 @@ target_type = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/CompHitbox"]
 scale = Vector2(6.3212, 6.46198)
 shape = SubResource("RectangleShape2D_n8jfy")
+
+[node name="Button" type="Button" parent="."]
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.133
+anchor_right = 0.209
+anchor_bottom = 0.197
+offset_top = -7.88
+offset_right = 0.23999
+offset_bottom = 0.0799942
+text = "End Idle"

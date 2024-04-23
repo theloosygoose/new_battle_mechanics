@@ -6,7 +6,6 @@ class_name BattleManager
 @export var action_area: ActionArea 
 @export var enemy: Enemy
 
-
 @export_group("Initial State")
 @export var initial_state_type: InitialStateType
 @export var initial_state: EnemyState
@@ -19,6 +18,8 @@ enum InitialStateType{
 var states: Dictionary = {}
 var current_state: EnemyState
 
+var idle_state: IdleEnemyState
+
 func _ready() -> void:
 	#get stages
 	for child: Node in get_children():
@@ -26,6 +27,9 @@ func _ready() -> void:
 			var child_state: EnemyState = child
 			states[child_state.data.state_name.to_lower()] = child_state
 			child_state.switch.connect(_on_switch)
+
+			if child_state is IdleEnemyState:
+				idle_state = child_state
 
 	if initial_state:
 		initial_state.start()

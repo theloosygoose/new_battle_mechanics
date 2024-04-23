@@ -24,8 +24,8 @@ func _ready() -> void:
 	init_get_polygon()
 	update_current_bounds()
 
-func _process(delta: float) -> void:
-	change_bounds_scale(0.1 * delta)
+func _process(_delta: float) -> void:
+#	change_bounds_scale(0.1 * delta)
 	pass
 
 func _on_body_exited(body:Node2D) -> void:

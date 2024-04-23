@@ -38,7 +38,6 @@ func _process(delta: float) -> void:
 			fire_projectile()
 			cooldown = false
 			elapsed_time = 0.0
-
 	
 	#reset trigger
 	enemy_trigger = false
@@ -53,12 +52,9 @@ func input_shoot() -> bool:
 		ShooterResource.Trigger.ENEMY:
 			if enemy_trigger:
 				return true
-
 		_:
 			return false
-	
 	return false
-
 
 func fire_projectile() -> void:
 	var loaded: Projectile = projectile.instantiate()
@@ -85,8 +81,6 @@ func fire_projectile() -> void:
 		ShooterResource.Direction.PLAYER:
 			var player_direction: float = global_position.angle_to_point(player.global_position)
 			shoot_direction = Vector2.from_angle(player_direction)
-
-
 
 	loaded.position = global_position
 	loaded.direction = shoot_direction
