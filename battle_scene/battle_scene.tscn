@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dm7l8onl5nlnd"]
+[gd_scene load_steps=33 format=3 uid="uid://dm7l8onl5nlnd"]
 
 [ext_resource type="Texture2D" uid="uid://c5s1kpo8fiymf" path="res://battle_scene/enemies/sprites/lg_red_rectangle.png" id="1_3ngkb"]
 [ext_resource type="Script" path="res://battle_scene/components/shooter/comp_shooter.gd" id="1_28gfm"]
@@ -11,31 +11,37 @@
 [ext_resource type="Script" path="res://battle_scene/battle_manager/battle_states/EnemyStateData.gd" id="4_mifee"]
 [ext_resource type="Texture2D" uid="uid://3y1rjn5e50tg" path="res://battle_scene/player/sprite/blue_circle.png" id="5_8m1uu"]
 [ext_resource type="PackedScene" uid="uid://byl0w62oufr02" path="res://battle_scene/projectiles/scenes/projectile_base.tscn" id="6_bknlh"]
+[ext_resource type="Resource" uid="uid://5ahcf2o6j03u" path="res://battle_scene/components/attack/attack_default.tres" id="7_u23kb"]
 [ext_resource type="Script" path="res://battle_scene/battle_manager/battle_states/states/IdleEnemyState.gd" id="8_xbkfc"]
 [ext_resource type="Script" path="res://battle_scene/components/shooter/shooter_resource.gd" id="9_2ebkg"]
 [ext_resource type="Script" path="res://battle_scene/enemies/enemy.gd" id="9_qyu5c"]
 [ext_resource type="Script" path="res://battle_scene/components/hitboxes/comp_hitbox.gd" id="11_bvfiu"]
+[ext_resource type="Script" path="res://battle_scene/components/attack/Attack.gd" id="13_n06dl"]
+[ext_resource type="Script" path="res://battle_scene/components/health/CompHealth.gd" id="16_imq8y"]
+[ext_resource type="Script" path="res://battle_scene/components/health/HealthResource.gd" id="17_ejj8n"]
 
 [sub_resource type="Resource" id="Resource_kgv4i"]
 script = ExtResource("4_mifee")
 state_name = "01_shoot"
 switch_state = "02_shoot"
 
-[sub_resource type="Resource" id="Resource_t8hp0"]
+[sub_resource type="Resource" id="Resource_hx3fy"]
 script = ExtResource("9_2ebkg")
-cooldown_time = 0.2
+cooldown_time = 0.5
 pattern = 0
 direction = 5
-target = 0
+speed_override = 0.0
+attack = ExtResource("7_u23kb")
 trigger = 1
 _trigger_input = ""
 
-[sub_resource type="Resource" id="Resource_u2hj7"]
+[sub_resource type="Resource" id="Resource_hj5je"]
 script = ExtResource("9_2ebkg")
-cooldown_time = 0.2
+cooldown_time = 0.5
 pattern = 0
 direction = 5
-target = 0
+speed_override = 0.0
+attack = ExtResource("7_u23kb")
 trigger = 1
 _trigger_input = ""
 
@@ -44,21 +50,23 @@ script = ExtResource("4_mifee")
 state_name = "02_shoot"
 switch_state = "01_shoot"
 
-[sub_resource type="Resource" id="Resource_1xupp"]
+[sub_resource type="Resource" id="Resource_oc4te"]
 script = ExtResource("9_2ebkg")
-cooldown_time = 0.5
+cooldown_time = 1.0
 pattern = 0
-direction = 6
-target = 0
+direction = 4
+speed_override = 0.0
+attack = ExtResource("7_u23kb")
 trigger = 1
 _trigger_input = ""
 
-[sub_resource type="Resource" id="Resource_c4rby"]
+[sub_resource type="Resource" id="Resource_otnj0"]
 script = ExtResource("9_2ebkg")
-cooldown_time = 0.5
+cooldown_time = 1.0
 pattern = 0
 direction = 6
-target = 0
+speed_override = 0.0
+attack = ExtResource("7_u23kb")
 trigger = 1
 _trigger_input = ""
 
@@ -73,12 +81,19 @@ _data = {
 }
 point_count = 5
 
-[sub_resource type="Resource" id="Resource_fmcyw"]
+[sub_resource type="Resource" id="Resource_8o56x"]
+script = ExtResource("13_n06dl")
+damage = 10.0
+effects = []
+target = 1
+
+[sub_resource type="Resource" id="Resource_n6vgb"]
 script = ExtResource("9_2ebkg")
-cooldown_time = 0.2
+cooldown_time = 0.4
 pattern = 0
 direction = 0
-target = 1
+speed_override = 0.0
+attack = SubResource("Resource_8o56x")
 trigger = 0
 _trigger_input = "action_00"
 
@@ -86,6 +101,10 @@ _trigger_input = "action_00"
 size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n8jfy"]
+
+[sub_resource type="Resource" id="Resource_4e77v"]
+script = ExtResource("17_ejj8n")
+max_health = 28.333
 
 [node name="BattleScene" type="Node"]
 script = ExtResource("1_n0psx")
@@ -107,13 +126,13 @@ data = SubResource("Resource_kgv4i")
 position = Vector2(64, 256)
 script = ExtResource("1_28gfm")
 projectile = ExtResource("6_bknlh")
-shooter_resource = SubResource("Resource_t8hp0")
+data = SubResource("Resource_hx3fy")
 
 [node name="ShooterComponent2" type="Marker2D" parent="BattleManager/ShootEnemyState"]
 position = Vector2(576, 192)
 script = ExtResource("1_28gfm")
 projectile = ExtResource("6_bknlh")
-shooter_resource = SubResource("Resource_u2hj7")
+data = SubResource("Resource_hj5je")
 
 [node name="Timer" type="Timer" parent="BattleManager/ShootEnemyState"]
 wait_time = 1.4
@@ -122,18 +141,18 @@ wait_time = 1.4
 script = ExtResource("3_rr5nu")
 data = SubResource("Resource_a73v5")
 
-[node name="ShooterComponent" type="Marker2D" parent="BattleManager/ShootEnemyState2"]
+[node name="ShooterComponent" type="Marker2D" parent="BattleManager/ShootEnemyState2" node_paths=PackedStringArray("track_node")]
 position = Vector2(224, 336)
 script = ExtResource("1_28gfm")
 projectile = ExtResource("6_bknlh")
-shooter_resource = SubResource("Resource_1xupp")
+data = SubResource("Resource_oc4te")
+track_node = NodePath("../../../ActionArea/Player")
 
-[node name="ShooterComponent2" type="Marker2D" parent="BattleManager/ShootEnemyState2" node_paths=PackedStringArray("track_node")]
+[node name="ShooterComponent2" type="Marker2D" parent="BattleManager/ShootEnemyState2"]
 position = Vector2(408, 344)
 script = ExtResource("1_28gfm")
 projectile = ExtResource("6_bknlh")
-shooter_resource = SubResource("Resource_c4rby")
-track_node = NodePath("../../../ActionArea/Player")
+data = SubResource("Resource_otnj0")
 
 [node name="Timer" type="Timer" parent="BattleManager/ShootEnemyState2"]
 wait_time = 1.646
@@ -167,34 +186,40 @@ action_area = NodePath("..")
 [node name="Sprite2D" type="Sprite2D" parent="ActionArea/Player"]
 texture = ExtResource("5_8m1uu")
 
-[node name="ShooterComponent" type="Marker2D" parent="ActionArea/Player"]
+[node name="ShooterComponent" type="Marker2D" parent="ActionArea/Player" node_paths=PackedStringArray("track_node")]
 script = ExtResource("1_28gfm")
 projectile = ExtResource("6_bknlh")
-shooter_resource = SubResource("Resource_fmcyw")
+data = SubResource("Resource_n6vgb")
+track_node = NodePath("../../../Enemy")
 
 [node name="CompHitbox" type="Area2D" parent="ActionArea/Player"]
 script = ExtResource("11_bvfiu")
+target_type = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ActionArea/Player/CompHitbox"]
 shape = SubResource("RectangleShape2D_o687b")
 debug_color = Color(0, 0.584314, 0.788235, 0.419608)
 
-[node name="Enemy" type="Node2D" parent="." node_paths=PackedStringArray("battle_manager")]
+[node name="Enemy" type="Node2D" parent="."]
 position = Vector2(320, 88)
 script = ExtResource("9_qyu5c")
-battle_manager = NodePath("../BattleManager")
 
 [node name="Sprite2D" type="Sprite2D" parent="Enemy"]
 scale = Vector2(2.19, 2.19)
 texture = ExtResource("1_3ngkb")
 
-[node name="CompHitbox" type="Area2D" parent="Enemy"]
+[node name="CompHitbox" type="Area2D" parent="Enemy" node_paths=PackedStringArray("health_component")]
 script = ExtResource("11_bvfiu")
 target_type = 1
+health_component = NodePath("../CompHealth")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/CompHitbox"]
 scale = Vector2(6.3212, 6.46198)
 shape = SubResource("RectangleShape2D_n8jfy")
+
+[node name="CompHealth" type="Node" parent="Enemy"]
+script = ExtResource("16_imq8y")
+data = SubResource("Resource_4e77v")
 
 [node name="Button" type="Button" parent="."]
 anchors_preset = -1

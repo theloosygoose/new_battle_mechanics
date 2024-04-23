@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Attack" load_steps=2 format=3 uid="uid://5ahcf2o6j03u"]
+
+[ext_resource type="Script" path="res://battle_scene/components/attack/Attack.gd" id="1_kc4bx"]
+
+[resource]
+script = ExtResource("1_kc4bx")
+damage = 10.0
+effects = []
+target = 0

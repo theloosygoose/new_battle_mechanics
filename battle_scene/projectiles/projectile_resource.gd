@@ -10,6 +10,7 @@ enum ProjectileType {
 @export var shader: ShaderMaterial
 @export var projectile_type: ProjectileType
 @export var lifetime: float
+@export var attack: Attack
 
 ## How does the projectile move?
 @export_group("Projectile Movement")

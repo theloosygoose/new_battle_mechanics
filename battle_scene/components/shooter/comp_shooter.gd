@@ -2,17 +2,7 @@ extends Marker2D
 class_name ShooterComponent
 
 @export var projectile: PackedScene
-@export var shooter_resource: ShooterResource 
-
-@onready var cooldown_time: float = shooter_resource.cooldown_time 
-#var pattern:= shooter_resource.pattern
-
-#Get Shooter ResourceStats or whatever
-@onready var input_type: ShooterResource.Trigger = shooter_resource.trigger
-@onready var input_name: String = shooter_resource.trigger_input
-
-@onready var target: ShooterResource.Target = shooter_resource.target
-@onready var direction: ShooterResource.Direction = shooter_resource.direction 
+@export var data: ShooterResource 
 
 @onready var action_area: ActionArea = get_node("%ActionArea")
 @onready var player: Player = get_node("%Player")
@@ -44,9 +34,9 @@ func _process(delta: float) -> void:
 	
 
 func input_shoot() -> bool:
-	match input_type:
+	match data.trigger:
 		ShooterResource.Trigger.PLAYER:
-			if Input.is_action_pressed(input_name):
+			if Input.is_action_pressed(data.trigger_input):
 				return true
 
 		ShooterResource.Trigger.ENEMY:
@@ -60,7 +50,7 @@ func fire_projectile() -> void:
 	var loaded: Projectile = projectile.instantiate()
 	var shoot_direction: Vector2
 
-	match direction:
+	match data.direction:
 		ShooterResource.Direction.UP:
 			shoot_direction = Vector2.UP
 
@@ -84,8 +74,10 @@ func fire_projectile() -> void:
 
 	loaded.position = global_position
 	loaded.direction = shoot_direction
-	loaded.proj_target = target
+	loaded.data.attack = data.attack
 
+	if data.speed_override:
+		loaded.data.linear_velocity = data.speed_override
 	if track_node:
 		loaded.new_track(track_node) 
 
@@ -94,7 +86,7 @@ func fire_projectile() -> void:
 func check_cooldown(delta: float) -> void:
 	elapsed_time += delta
 
-	if elapsed_time >= cooldown_time:
+	if elapsed_time >= data.cooldown_time:
 		cooldown = true
 
 func pull_trigger() -> void:

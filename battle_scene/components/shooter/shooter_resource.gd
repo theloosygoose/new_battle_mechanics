@@ -22,23 +22,16 @@ enum Direction {
 	PLAYER
 }
 
-enum Target {
-	PLAYER,
-	ENEMY,
-	ALL,
-	NONE,
-}
 
 @export var cooldown_time: float 
 @export var pattern: Pattern
 
 @export var direction: Direction
-@export var target: Target
+@export var speed_override: float
+@export var attack: Attack
 
 @export_group("Trigger")
 @export var trigger: Trigger
-
-
 @export var _trigger_input: String
 
 

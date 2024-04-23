@@ -24,7 +24,6 @@ func start() -> void:
 func run(_delta: float) -> void: 
 	for shooter in shooters:
 		shooter.pull_trigger()
-	
 
 func physics_run(_delta: float) -> void:
 	pass

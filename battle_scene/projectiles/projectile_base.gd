@@ -1,18 +1,13 @@
 extends Area2D
 class_name Projectile
 
-@export var proj_data: ProjectileResource 
+@export var data: ProjectileResource 
 
 ## How does the projectile _look?
-@onready var proj_shader: ShaderMaterial = proj_data.shader
-@onready var proj_scale: Vector2 = proj_data.scale
+@onready var proj_shader: ShaderMaterial = data.shader
+@onready var proj_scale: Vector2 = data.scale
 
-## How does the projectile move?
-@onready var speed: float = proj_data.linear_velocity
-@onready var damage: float = proj_data.damage
-@onready var lifetime: float = proj_data.lifetime
-
-var proj_target: ShooterResource.Target = ShooterResource.Target.ENEMY
+var damage: float 
 var direction: Vector2 = Vector2.UP
 
 var is_proj_track: bool = false
@@ -40,7 +35,7 @@ class Track:
 func _ready() -> void:
 	area_entered.connect(_entered_area)
 	lifetime_timer = Timer.new()
-	lifetime_timer.wait_time = lifetime
+	lifetime_timer.wait_time = data.lifetime
 	lifetime_timer.one_shot = true
 	lifetime_timer.timeout.connect(_lifetime_timeout)
 	self.add_child(lifetime_timer)
@@ -51,33 +46,34 @@ func _physics_process(delta: float) -> void:
 	var velocity: Vector2
 
 	if !is_proj_track:
-		velocity= speed * direction
+		velocity = data.linear_velocity * direction
 		rotation_degrees = rad_to_deg(direction.angle()) - 90
 	else:
 		track_data.physics_update()
-		var direction_to_target: Vector2 = Vector2.from_angle(global_position.angle_to_point(track_data.prev_position))
-		direction += direction_to_target.normalized()
-		velocity = speed * direction.normalized()
+		var direction_to_target:Vector2 = Vector2.from_angle(global_position.angle_to_point(track_data.prev_position))
+		direction += direction_to_target
+		velocity = data.linear_velocity * direction
 		rotation_degrees = rad_to_deg(direction.angle()) - 90
 
 	position += delta * velocity
 	
 func _entered_area(area: Area2D) -> void:
-	var entered_hitbox_target_accept: ShooterResource.Target 
+	var entered_hitbox_target_accept: Attack.Target 
 
 	if area is CompHitbox:
 		var hitbox: CompHitbox = area 
 		entered_hitbox_target_accept = hitbox.target_type
 
-		match proj_target:
-
-			ShooterResource.Target.ENEMY:
-				if entered_hitbox_target_accept == ShooterResource.Target.ENEMY:
+		match data.attack.target:
+			Attack.Target.ENEMY:
+				if entered_hitbox_target_accept == Attack.Target.ENEMY:
+					hitbox.damage(data.attack)
 					print("Bullet Hit Enemy")
 					queue_free()
 
-			ShooterResource.Target.PLAYER:
-				if entered_hitbox_target_accept == ShooterResource.Target.PLAYER:
+			Attack.Target.PLAYER:
+				if entered_hitbox_target_accept == Attack.Target.PLAYER:
+					hitbox.damage(data.attack)
 					print("Bullet Hit Player")
 					queue_free()
 	else:
