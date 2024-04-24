@@ -1,5 +1,5 @@
 extends Marker2D 
-class_name ShooterComponent
+class_name CompShooter 
 
 @export var projectile: PackedScene
 @export var data: ShooterResource 

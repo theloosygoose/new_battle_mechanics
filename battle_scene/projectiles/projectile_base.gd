@@ -68,13 +68,11 @@ func _entered_area(area: Area2D) -> void:
 			Attack.Target.ENEMY:
 				if entered_hitbox_target_accept == Attack.Target.ENEMY:
 					hitbox.damage(data.attack)
-					print("Bullet Hit Enemy")
 					queue_free()
 
 			Attack.Target.PLAYER:
 				if entered_hitbox_target_accept == Attack.Target.PLAYER:
 					hitbox.damage(data.attack)
-					print("Bullet Hit Player")
 					queue_free()
 	else:
 		pass

@@ -12,7 +12,7 @@ class_name BattleManager
 @export var idle_state: IdleEnemyState
 
 @export_group("Data")
-@export var ManagerSequence: JSON
+@export var sequence: Array[EnemyState]
 
 enum InitialStateType{
 	RANDOM,
@@ -24,11 +24,9 @@ var current_state: EnemyState
 
 func _ready() -> void:
 	#get stages
-	for child: Node in get_children():
-		if child is EnemyState:
-			var child_state: EnemyState = child
-			states[child_state.data.state_name.to_lower()] = child_state
-			child_state.switch.connect(_on_switch)
+	for state: EnemyState in sequence: 
+		states[state.data.state_name.to_lower()] = state 
+		state.switch.connect(_on_switch)
 
 	if initial_state:
 		initial_state.start()

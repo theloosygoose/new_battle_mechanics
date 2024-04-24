@@ -12,7 +12,6 @@ func _ready() -> void:
 	self.health_depleated.connect(_on_health_depleated)
 
 func damage(attack: Attack) -> void:
-	print("took DAMAGE", attack.damage)
 	health -= attack.damage 
 
 	if health <= 0.0:

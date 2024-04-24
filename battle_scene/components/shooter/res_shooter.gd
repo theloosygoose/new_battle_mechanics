@@ -43,5 +43,3 @@ var trigger_input: String:
 			return _trigger_input
 
 		return ""
-
-

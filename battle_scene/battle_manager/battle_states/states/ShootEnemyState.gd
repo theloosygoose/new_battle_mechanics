@@ -1,7 +1,7 @@
 extends EnemyState 
 class_name ShootEnemyState
 
-var shooters: Array[ShooterComponent]
+var shooters: Array[CompShooter]
 var timer: Timer
 
 var call_count: int = 0
@@ -9,8 +9,8 @@ var call_count: int = 0
 func start() -> void:
 	if call_count == 0:
 		for child: Node in child_nodes:
-			if child is ShooterComponent:
-				var shooter: ShooterComponent = child
+			if child is CompShooter:
+				var shooter: CompShooter= child
 				shooters.append(shooter)
 
 			if child is Timer:
