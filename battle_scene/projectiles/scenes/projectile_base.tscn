@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://byl0w62oufr02"]
 
 [ext_resource type="Script" path="res://battle_scene/projectiles/projectile_base.gd" id="1_nmkv8"]
-[ext_resource type="Script" path="res://battle_scene/projectiles/projectile_resource.gd" id="2_4ys4v"]
+[ext_resource type="Script" path="res://battle_scene/projectiles/resources/res_projectile.gd" id="2_4ys4v"]
 [ext_resource type="Texture2D" uid="uid://cyebs7v1jj6wi" path="res://battle_scene/projectiles/assets/white_pill.png" id="3_6noha"]
 
 [sub_resource type="Resource" id="Resource_xq1b3"]

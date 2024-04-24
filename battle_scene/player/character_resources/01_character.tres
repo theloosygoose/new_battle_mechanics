@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="CharacterResource" load_steps=3 format=3 uid="uid://drdrl4fttnsu8"]
-
-[ext_resource type="Script" path="res://battle_scene/player/character_resources/character_stats_resource.gd" id="1_580qy"]
-[ext_resource type="Texture2D" uid="uid://3y1rjn5e50tg" path="res://battle_scene/player/sprite/blue_circle.png" id="2_orelw"]
-
-[resource]
-script = ExtResource("1_580qy")
-speed = 300.0
-sprite = ExtResource("2_orelw")
