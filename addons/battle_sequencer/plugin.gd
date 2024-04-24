@@ -1,12 +1,11 @@
 @tool
 extends EditorPlugin
 
+var insp = preload("res://addons/battle_sequencer/inspectorplugin.gd")
 
 func _enter_tree() -> void:
-	# Initialization of the plugin goes here.
-	pass
-
+	insp = insp.new()
+	add_inspector_plugin(insp)
 
 func _exit_tree() -> void:
-	# Clean-up of the plugin goes here.
-	pass
+	remove_inspector_plugin(insp)

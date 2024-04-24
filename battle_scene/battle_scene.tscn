@@ -109,7 +109,7 @@ max_health = 28.333
 [node name="BattleScene" type="Node"]
 script = ExtResource("1_n0psx")
 
-[node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("path2D_spawner", "action_area", "enemy", "initial_state", "idle_state", "sequence")]
+[node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("path2D_spawner", "action_area", "enemy", "initial_state", "idle_state")]
 unique_name_in_owner = true
 script = ExtResource("2_cb1gt")
 path2D_spawner = NodePath("../Path2D")
@@ -118,7 +118,6 @@ enemy = NodePath("../Enemy")
 initial_state_type = 1
 initial_state = NodePath("01_idle")
 idle_state = NodePath("01_idle")
-sequence = [NodePath("01_idle"), NodePath("02_shoot"), NodePath("01_shoot")]
 
 [node name="01_shoot" type="Node" parent="BattleManager"]
 script = ExtResource("3_rr5nu")
