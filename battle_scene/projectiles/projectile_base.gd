@@ -84,5 +84,4 @@ func new_track(_track_node: Node2D) -> void:
 	is_proj_track = true
 
 func _lifetime_timeout() -> void:
-	print("All Done")
 	queue_free()

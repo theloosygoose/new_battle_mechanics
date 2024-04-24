@@ -17,4 +17,3 @@ enum ProjectileType {
 @export var linear_velocity: float
 @export var scale: Vector2
 @export var damage: float
-

@@ -109,55 +109,57 @@ max_health = 28.333
 [node name="BattleScene" type="Node"]
 script = ExtResource("1_n0psx")
 
-[node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("path2D_spawner", "action_area", "enemy", "idle_state")]
+[node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("path2D_spawner", "action_area", "enemy", "initial_state", "idle_state", "sequence")]
 unique_name_in_owner = true
 script = ExtResource("2_cb1gt")
 path2D_spawner = NodePath("../Path2D")
 action_area = NodePath("../ActionArea")
 enemy = NodePath("../Enemy")
 initial_state_type = 1
-idle_state = NodePath("IdleEnemyState")
+initial_state = NodePath("01_idle")
+idle_state = NodePath("01_idle")
+sequence = [NodePath("01_idle"), NodePath("02_shoot"), NodePath("01_shoot")]
 
-[node name="ShootEnemyState" type="Node" parent="BattleManager"]
+[node name="01_shoot" type="Node" parent="BattleManager"]
 script = ExtResource("3_rr5nu")
 data = SubResource("Resource_kgv4i")
 
-[node name="ShooterComponent" type="Marker2D" parent="BattleManager/ShootEnemyState"]
+[node name="ShooterComponent" type="Marker2D" parent="BattleManager/01_shoot"]
 position = Vector2(64, 256)
 script = ExtResource("1_28gfm")
 projectile = ExtResource("6_bknlh")
 data = SubResource("Resource_hx3fy")
 
-[node name="ShooterComponent2" type="Marker2D" parent="BattleManager/ShootEnemyState"]
+[node name="ShooterComponent2" type="Marker2D" parent="BattleManager/01_shoot"]
 position = Vector2(576, 192)
 script = ExtResource("1_28gfm")
 projectile = ExtResource("6_bknlh")
 data = SubResource("Resource_hj5je")
 
-[node name="Timer" type="Timer" parent="BattleManager/ShootEnemyState"]
+[node name="Timer" type="Timer" parent="BattleManager/01_shoot"]
 wait_time = 1.4
 
-[node name="ShootEnemyState2" type="Node" parent="BattleManager"]
+[node name="02_shoot" type="Node" parent="BattleManager"]
 script = ExtResource("3_rr5nu")
 data = SubResource("Resource_a73v5")
 
-[node name="ShooterComponent" type="Marker2D" parent="BattleManager/ShootEnemyState2" node_paths=PackedStringArray("track_node")]
+[node name="ShooterComponent" type="Marker2D" parent="BattleManager/02_shoot" node_paths=PackedStringArray("track_node")]
 position = Vector2(224, 336)
 script = ExtResource("1_28gfm")
 projectile = ExtResource("6_bknlh")
 data = SubResource("Resource_oc4te")
 track_node = NodePath("../../../ActionArea/Player")
 
-[node name="ShooterComponent2" type="Marker2D" parent="BattleManager/ShootEnemyState2"]
+[node name="ShooterComponent2" type="Marker2D" parent="BattleManager/02_shoot"]
 position = Vector2(408, 344)
 script = ExtResource("1_28gfm")
 projectile = ExtResource("6_bknlh")
 data = SubResource("Resource_otnj0")
 
-[node name="Timer" type="Timer" parent="BattleManager/ShootEnemyState2"]
+[node name="Timer" type="Timer" parent="BattleManager/02_shoot"]
 wait_time = 1.646
 
-[node name="IdleEnemyState" type="Node" parent="BattleManager" node_paths=PackedStringArray("input_button")]
+[node name="01_idle" type="Node" parent="BattleManager" node_paths=PackedStringArray("input_button")]
 script = ExtResource("8_xbkfc")
 input_button = NodePath("../../Button")
 data = SubResource("Resource_30r50")

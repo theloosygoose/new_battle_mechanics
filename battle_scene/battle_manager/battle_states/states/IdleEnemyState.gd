@@ -1,7 +1,6 @@
 extends EnemyState
 class_name IdleEnemyState
 
-
 @export var input_button: Button
 
 func start() -> void:

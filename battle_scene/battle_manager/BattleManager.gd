@@ -13,6 +13,7 @@ class_name BattleManager
 
 @export_group("Data")
 @export var sequence: Array[EnemyState]
+var nm_sequence: Array[String]
 
 enum InitialStateType{
 	RANDOM,
