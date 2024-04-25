@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://c1gmppn316ynl"]
+
+[node name="SequenceCreatorUI" type="Control"]
+custom_minimum_size = Vector2(0, 500)
+layout_direction = 2
+layout_mode = 3
+anchor_top = 0.003
+anchor_right = 0.512
+anchor_bottom = 1.0
+offset_top = -0.08
+offset_right = 0.319977
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.96
+anchor_bottom = 1.0
+offset_right = 0.119995
+offset_bottom = 7.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Sequence Creator
+"
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+use_hidden_tabs_for_min_size = true
+
+[node name="States" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+layout_mode = 2
+tooltip_text = "Manage States"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/States"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/States/VBoxContainer"]
+layout_mode = 2
+text = "Why No Working
+"
+
+[node name="MenuBar" type="MenuBar" parent="VBoxContainer/TabContainer/States/VBoxContainer"]
+layout_mode = 2
+text_direction = 1
+
+[node name="End Conditions" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+tooltip_text = "Manage States"
+
+[node name="Test" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+tooltip_text = "Manage States"

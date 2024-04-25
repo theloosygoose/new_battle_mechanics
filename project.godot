@@ -44,6 +44,7 @@ enabled=PackedStringArray("res://addons/battle_sequencer/plugin.cfg")
 
 folder_colors={
 "res://battle_scene/battle_manager/": "purple",
+"res://battle_scene/battle_manager/sequences/": "pink",
 "res://battle_scene/components/": "yellow",
 "res://battle_scene/enemies/": "red",
 "res://battle_scene/player/": "green",

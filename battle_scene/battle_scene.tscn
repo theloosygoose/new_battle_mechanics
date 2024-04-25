@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dm7l8onl5nlnd"]
+[gd_scene load_steps=33 format=3 uid="uid://dm7l8onl5nlnd"]
 
 [ext_resource type="Texture2D" uid="uid://c5s1kpo8fiymf" path="res://battle_scene/enemies/sprites/lg_red_rectangle.png" id="1_3ngkb"]
 [ext_resource type="Script" path="res://battle_scene/components/shooter/CompShooter.gd" id="1_28gfm"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://battle_scene/action_space/ActionArea.gd" id="1_qmgk5"]
 [ext_resource type="Script" path="res://battle_scene/player/Player.gd" id="2_4tn0p"]
 [ext_resource type="Script" path="res://battle_scene/battle_manager/BattleManager.gd" id="2_cb1gt"]
-[ext_resource type="Script" path="res://battle_scene/battle_manager/sequences/sequence.gd" id="3_lenox"]
 [ext_resource type="Script" path="res://battle_scene/battle_manager/battle_states/states/ShootEnemyState.gd" id="3_rr5nu"]
 [ext_resource type="Resource" uid="uid://drdrl4fttnsu8" path="res://battle_scene/player/resources/01_character.tres" id="3_w43na"]
 [ext_resource type="Script" path="res://battle_scene/battle_manager/battle_states/EnemyStateData.gd" id="4_mifee"]
@@ -20,11 +19,6 @@
 [ext_resource type="Script" path="res://battle_scene/components/attack/Attack.gd" id="13_n06dl"]
 [ext_resource type="Script" path="res://battle_scene/components/health/CompHealth.gd" id="16_imq8y"]
 [ext_resource type="Script" path="res://battle_scene/components/health/resources/res_health.gd" id="17_ejj8n"]
-
-[sub_resource type="Resource" id="Resource_tgbla"]
-script = ExtResource("3_lenox")
-groups = Array[Resource("res://battle_scene/battle_manager/sequences/res_state_group.gd")]([])
-name = ""
 
 [sub_resource type="Resource" id="Resource_kgv4i"]
 script = ExtResource("4_mifee")
@@ -124,7 +118,6 @@ enemy = NodePath("../Enemy")
 initial_state_type = 1
 initial_state = NodePath("01_idle")
 idle_state = NodePath("01_idle")
-sequence = SubResource("Resource_tgbla")
 
 [node name="01_shoot" type="Node" parent="BattleManager"]
 script = ExtResource("3_rr5nu")

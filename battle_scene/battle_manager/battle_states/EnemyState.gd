@@ -1,3 +1,4 @@
+@icon("res://battle_scene/icons/ic_EnemyState.svg")
 extends Node
 class_name EnemyState
 ## EnemyState requires it to be a child of BattleManager to be used

@@ -1,3 +1,4 @@
+@icon("res://battle_scene/icons/ic_BattleManager.svg")
 extends Node
 class_name BattleManager
 

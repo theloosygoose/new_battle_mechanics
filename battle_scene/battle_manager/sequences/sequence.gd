@@ -1,4 +1,3 @@
-@tool
 class_name Sequence extends Resource
 
 enum Conditions{

@@ -1,4 +1,3 @@
-@tool
 class_name StateGroup extends Resource
 
 @export var id: int 
