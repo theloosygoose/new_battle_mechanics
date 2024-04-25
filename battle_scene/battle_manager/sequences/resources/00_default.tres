@@ -3,13 +3,14 @@
 [ext_resource type="Script" path="res://battle_scene/battle_manager/sequences/res_state_group.gd" id="1_w3xt2"]
 [ext_resource type="Script" path="res://battle_scene/battle_manager/sequences/sequence.gd" id="1_wss32"]
 
-[sub_resource type="Resource" id="Resource_7blpv"]
+[sub_resource type="Resource" id="Resource_pbwbq"]
 script = ExtResource("1_w3xt2")
 id = 0
 condition = 0
-states = {}
+cond_value = 0
+states = Array[String]([])
 
 [resource]
 script = ExtResource("1_wss32")
-groups = Array[ExtResource("1_w3xt2")]([SubResource("Resource_7blpv")])
+groups = Array[ExtResource("1_w3xt2")]([SubResource("Resource_pbwbq")])
 name = ""

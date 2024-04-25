@@ -1,60 +1,44 @@
-[gd_scene format=3 uid="uid://c1gmppn316ynl"]
+[gd_scene load_steps=4 format=3 uid="uid://c1gmppn316ynl"]
+
+[ext_resource type="Script" path="res://addons/battle_sequencer/ui/SequenceCreator.gd" id="1_rdlek"]
+[ext_resource type="Script" path="res://addons/battle_sequencer/ui/MainPanel.gd" id="2_fqgvh"]
+[ext_resource type="Script" path="res://addons/battle_sequencer/ui/StateTree.gd" id="2_gdfgl"]
 
 [node name="SequenceCreatorUI" type="Control"]
 custom_minimum_size = Vector2(0, 500)
 layout_direction = 2
 layout_mode = 3
-anchor_top = 0.003
-anchor_right = 0.512
+anchor_top = -0.192
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -0.08
-offset_right = 0.319977
+offset_top = 0.120003
+offset_bottom = 71.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_rdlek")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_direction = 2
+[node name="Main" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.96
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 0.119995
-offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_fqgvh")
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="TabContainer" type="TabContainer" parent="Main"]
 layout_mode = 2
-text = "Sequence Creator
-"
+size_flags_vertical = 3
 
-[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 400)
+[node name="StateTree" type="Tree" parent="Main/TabContainer"]
 layout_mode = 2
-use_hidden_tabs_for_min_size = true
+hide_root = true
+script = ExtResource("2_gdfgl")
 
-[node name="States" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+[node name="ReferenceRect" type="ReferenceRect" parent="Main"]
+custom_minimum_size = Vector2(0, 160)
 layout_mode = 2
-tooltip_text = "Manage States"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/States"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Label" type="Label" parent="VBoxContainer/TabContainer/States/VBoxContainer"]
-layout_mode = 2
-text = "Why No Working
-"
-
-[node name="MenuBar" type="MenuBar" parent="VBoxContainer/TabContainer/States/VBoxContainer"]
-layout_mode = 2
-text_direction = 1
-
-[node name="End Conditions" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
-visible = false
-layout_mode = 2
-tooltip_text = "Manage States"
-
-[node name="Test" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
-visible = false
-layout_mode = 2
-tooltip_text = "Manage States"
+border_color = Color(0.6944, 0.359751, 0.858796, 1)
+editor_only = false
